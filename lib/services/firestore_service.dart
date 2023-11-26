@@ -19,8 +19,7 @@ class FirestoreService {
   //LISTA EVENTOS
   Stream<QuerySnapshot> getEventos() 
   {
-     return FirebaseFirestore.
-     instance.collection('eventos').snapshots();
+     return FirebaseFirestore.instance.collection('eventos').snapshots();
   }
 
   //Lista de eventos por likes
