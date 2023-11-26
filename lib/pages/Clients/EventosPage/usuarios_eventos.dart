@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_certamen_aplicacion/pages/EventosPage/editar_eventos_page.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/EventosPage/editar_eventos_page.dart';
 import 'package:flutter_certamen_aplicacion/services/firestore_service.dart';
 
 class UsuarioEventosPage extends StatelessWidget{

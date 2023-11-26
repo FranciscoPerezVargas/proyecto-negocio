@@ -2,7 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_certamen_aplicacion/pages/EventosPage/detalles_eventos_page.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/EventosPage/detalles_eventos_page.dart';
 import 'package:flutter_certamen_aplicacion/services/firestore_service.dart';
 import 'package:flutter_certamen_aplicacion/widgets/botones_evento.dart';
 
@@ -37,58 +37,11 @@ class _EventosPageState extends State<EventosPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 80),
             // Editar y Nuevo Evento (Esta en la carpeta widgets)
             widget.usuario != null ? BotonesEvento(context, widget.usuario!) : SizedBox(),
       
-            // Filtro
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Container(
-                
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 2),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: const Color.fromARGB(255, 0, 0, 0)),
-                        borderRadius: BorderRadius.circular(8.0),
-                        color: Color.fromRGBO(160, 213, 244, 1)
-                        
-                      ),
-                      child: DropdownButton<String>(
-                        value: dropdownValue,
-                        hint: Text('Sin filtro'),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValue = newValue;
-                            if (newValue == 'Sin Filtro') {
-                              filtro = '1';
-                            } else if (newValue == 'Nombre') {
-                              filtro = '2';
-                            } else if (newValue == 'Likes') {
-                              filtro = '3';
-                            } else if (newValue == 'Solo terminados') {
-                              filtro = '4';
-                            } else if (newValue == 'Solo actuales') {
-                              filtro = '5';
-                            }
-                          });
-                        },
-                        items: <String>['Sin Filtro', 'Nombre', 'Likes', 'Solo terminados', 'Solo actuales']
-                            .map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value, style: TextStyle(color: Colors.black, fontSize: 18),),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+           
            
            Divider(color: Colors.black,),
            Expanded(

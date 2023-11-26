@@ -59,6 +59,14 @@ class FirestoreService {
      instance.collection('eventos').where('usuario', isEqualTo: usuarioId).snapshots();
   }
 
+  Future<QuerySnapshot> getEstudiantes(String usuarioId) 
+  {
+     return FirebaseFirestore.
+     instance.collection('estudiantes').where('usuario', isEqualTo: usuarioId).get();
+  }
+
+
+
     /////////NUEVO EVENTO
     Future<void> eventoAgregar(String nombre, String descripcion, String lugar, String tipo, DateTime fechaHora, String imagenURL, String usuarioId) async {
       return FirebaseFirestore.instance.collection('eventos').doc().set({
@@ -69,6 +77,16 @@ class FirestoreService {
         'lugar': lugar,
         'tipo': tipo,
         'likes': 0,
+        'usuario': usuarioId,
+      });
+    }
+
+
+     Future<void> EstudianteAgregar(String nombre, String disgustos, String curso, String usuarioId) async {
+      return FirebaseFirestore.instance.collection('estudiantes').doc().set({
+        'nombre': nombre,
+        'disgustos': disgustos,
+        'curso': curso,
         'usuario': usuarioId,
       });
     }

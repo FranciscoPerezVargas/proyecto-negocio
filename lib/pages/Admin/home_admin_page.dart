@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'login_page.dart'; 
-import 'EventosPage/eventos_page.dart';
+import '../login_page.dart'; 
+import '../Clients/EventosPage/eventos_page.dart';
 
 
 
-class HomePage extends StatefulWidget {
+class HomeAdminPage extends StatefulWidget {
   final User? usuario;
 
-  const HomePage({required this.usuario});
+  const HomeAdminPage({required this.usuario});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeAdminPageState createState() => _HomeAdminPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeAdminPageState extends State<HomeAdminPage> {
   bool _showEventos = true;
 
   @override
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text('Tarjetas de Eventos Publicos'),
+        title: Text('ADMIN de Eventos Publicos'),
         backgroundColor: const Color.fromARGB(255, 91, 150, 199),
         leading: Builder(
           builder: (BuildContext context) {

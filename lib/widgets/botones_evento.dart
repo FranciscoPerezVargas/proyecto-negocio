@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_certamen_aplicacion/pages/EventosPage/nuevo_evento_page.dart';
-import 'package:flutter_certamen_aplicacion/pages/EventosPage/usuarios_eventos.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/EventosPage/nuevo_evento_page.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/EventosPage/usuarios_eventos.dart';
 
 BotonesEvento(context, usuario){
 

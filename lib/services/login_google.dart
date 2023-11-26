@@ -22,6 +22,10 @@ class LoginGoogle {
             await _auth.signInWithCredential(credential);
 
         final User? usuario = resultadoAuth.user;
+
+
+        
+
         return usuario;
       }
     } catch (e) {
