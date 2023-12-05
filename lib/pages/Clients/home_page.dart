@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text('Almuerzos'),
-        backgroundColor: const Color.fromARGB(255, 91, 150, 199),
+        backgroundColor: Color.fromARGB(255, 239, 171, 68),
         leading: Builder(
           builder: (BuildContext context) {
             return widget.usuario != null

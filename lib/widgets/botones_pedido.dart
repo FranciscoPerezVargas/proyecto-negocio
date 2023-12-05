@@ -17,7 +17,7 @@ Widget BotonPedido(BuildContext context, User usuario) {
         );
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue[700],
+        backgroundColor: Color.fromARGB(255, 228, 193, 18),
         padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

@@ -45,7 +45,11 @@ class _ListaInsumoPageState extends State<ListaInsumoPage> {
 
               return ListTile(
                 title: Text(nombre),
-                subtitle: Text('Precio: $precio stock: $stock'),
+                subtitle: Text('Precio: $precio stock: $stock',
+    style: TextStyle(
+      color: stock <= 10 ? Colors.red : Colors.black, // Cambia el color a rojo si el stock es <= 10
+    ),
+  ),
               );
             },
           );

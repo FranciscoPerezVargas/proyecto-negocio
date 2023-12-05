@@ -66,89 +66,85 @@ class _PedidosPageState extends State<PedidosPage> {
 
 
 
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 80,),
+          botonHabilitado
+            ? BotonPedido(context, widget.usuario) // Botón habilitado
+            : Text('No puedes realizar pedidos sin un Rut registrado, dirigete a Perfil'),
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 80,),
-            
+          Divider(color: Colors.black),
+          Expanded(
+            child: FutureBuilder(
+              future: FirestoreService().getEstudiantes(widget.usuario.uid),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: Text("Esperando que se suban datos..."));
+                } else {
+                  return ListView.separated(
+                    physics: BouncingScrollPhysics(),
+                    separatorBuilder: (context, index) => Divider(),
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      var estudiante = snapshot.data!.docs[index];
+                      Color textColor = Colors.red;
 
-
-
-            botonHabilitado
-          ? BotonPedido(context, widget.usuario) // Botón habilitado
-          : Text('No puedes realizar pedidos sin un Rut registrado, dirigete a Perfil'),
-
-            Divider(color: Colors.black),
-            Expanded(
-              child: FutureBuilder(
-                future: FirestoreService().getEstudiantes(widget.usuario.uid),
-                //future: FirestoreService().obtenerPedidosPorEstudiante(idEstudianteSeleccionado, widget.usuario.uid),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: Text("Esperando que se suban datos..."));
-                  } else {
-                    return ListView.separated(
-          physics: BouncingScrollPhysics(),
-          separatorBuilder: (context, index) => Divider(),
-          itemCount: snapshot.data!.docs.length,
-          itemBuilder: (context, index) {
-            var estudiante = snapshot.data!.docs[index];
-            Color textColor = Colors.red;
-
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Pedidos de ${estudiante['nombre']}',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(
-                  height: 200,
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 40.0, vertical: 5.0),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(color: textColor),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetallesPedidosPage(idEstudiante: estudiante.id, usuario: widget.usuario.uid),
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 255, 246, 165), // Establece el fondo como amarillo
+                            borderRadius: BorderRadius.circular(10.0), // Borde redondeado
+                          ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Pedidos de ${estudiante['nombre']}',
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                ),
                               ),
-                            );
-                          },
-                          child: Text('Detalles de Pedidos'),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                               
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => DetallesPedidosPage(idEstudiante: estudiante.id, usuario: widget.usuario.uid),
+                                          ),
+                                        );
+                                      },
+                                      child: Text('Detalles de Pedidos'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        );
-      }
-    },
-  ),
-),
-          ],
-        ),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 

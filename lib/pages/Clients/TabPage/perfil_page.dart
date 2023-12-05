@@ -183,11 +183,11 @@ class PerfilPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PedidosTotalesPage(usuario: usuario),
+              builder: (context) => DeudaTotalPage(usuario: usuario),
             ),
           );
         },
-        child: Text('Pedidos Totales'),
+        child: Text('Deuda'),
       ),),
         ],
       ),
