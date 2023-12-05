@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_certamen_aplicacion/pages/Clients/PedidosPage/calendario_page.dart';
-import 'package:flutter_certamen_aplicacion/pages/Clients/PedidosPage/perfil_page.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/TabPage/calendario_page.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/TabPage/pedidos_page.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/TabPage/perfil_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../login_page.dart'; 
-import 'EventosPage/eventos_page.dart';
+
 
 
 
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _pages = [
-      EventosPage(usuario: widget.usuario),
+      PedidosPage(usuario: widget.usuario),
       CalendarioPage(usuario: widget.usuario),
       PerfilPage(usuario: widget.usuario),
     ];
@@ -121,7 +122,7 @@ class _HomePageState extends State<HomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.event),
-            label: 'Eventos',
+            label: 'Pedidos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),

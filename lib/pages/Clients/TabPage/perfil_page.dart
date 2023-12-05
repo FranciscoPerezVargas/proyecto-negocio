@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_certamen_aplicacion/pages/Clients/PedidosPage/EstudiantePage/administrar_estudiante.dart';
-import 'package:flutter_certamen_aplicacion/pages/Clients/PedidosPage/EstudiantePage/nuevo_estudiante_page.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/TabPage/PerfilPage/EstudiantePage/administrar_estudiante.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/TabPage/PerfilPage/EstudiantePage/nuevo_estudiante_page.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/TabPage/PerfilPage/agregar_rut_page.dart';
+import 'package:flutter_certamen_aplicacion/pages/Clients/TabPage/PerfilPage/pedidos_totales_page.dart';
 import 'package:flutter_certamen_aplicacion/services/firestore_service.dart';
 
 class PerfilPage extends StatelessWidget {
@@ -13,8 +15,11 @@ class PerfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Perfil'),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(0.0),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,6 +57,20 @@ class PerfilPage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
+          Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AgregarRutPage(usuario: usuario),
+              ),
+            );
+          },
+          child: Text('Agregar Rut'),
+        ),
+      ),
+          SizedBox(height: 10),
           
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -81,7 +100,7 @@ class PerfilPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AdministrarEstudiantes(usuario: usuario),
+                        builder: (context) => AdministrarEstudiantesPage(usuario: usuario),
                       ),
                     );
                   },
@@ -115,7 +134,7 @@ class PerfilPage extends StatelessWidget {
             var estudiante = snapshot.data!.docs[index];
             var nombre = estudiante['nombre']; // Aquí deberías reemplazar 'nombre' con el nombre del campo en tu base de datos Firestore
             var curso = estudiante['curso']; // Igualmente, reemplaza 'curso' con el nombre del campo correspondiente
-            var disgustos = estudiante['disgustos']; // Reemplaza 'disgustos' con el campo adecuado
+            
             return Container(
               padding: EdgeInsets.all(20.0),
               color: Colors.green, // Color de fondo del segundo contenedor
@@ -145,13 +164,7 @@ class PerfilPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  Text(
-                    'Disgustos: $disgustos',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
+                  
                   // Puedes agregar más información del estudiante aquí
                 ],
               ),
@@ -162,6 +175,20 @@ class PerfilPage extends StatelessWidget {
     }
   },
 ),
+      SizedBox(height: 10),
+    Center(
+      child: ElevatedButton(
+        onPressed: () {
+          // Lógica para mostrar los pedidos totales
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PedidosTotalesPage(usuario: usuario),
+            ),
+          );
+        },
+        child: Text('Pedidos Totales'),
+      ),),
         ],
       ),
     );

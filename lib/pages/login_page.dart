@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 50, 128, 192),
         title: Text(
-          'Colaciones Himena',
+          'Colaciones Ximena',
           style: TextStyle(
             color: Colors.cyan[100],
            

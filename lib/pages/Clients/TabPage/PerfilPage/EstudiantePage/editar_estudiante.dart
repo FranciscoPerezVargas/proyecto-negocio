@@ -1,17 +1,24 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_certamen_aplicacion/services/firestore_service.dart';
 
-class NuevoEstudiantePage extends StatefulWidget {
+class EditarEstudiantePage extends StatefulWidget {
   final User usuario;
+  final QueryDocumentSnapshot<Object?> estudiante;
 
-  const NuevoEstudiantePage({Key? key, required this.usuario}) : super(key: key);
+  const EditarEstudiantePage({
+    Key? key,
+    required this.usuario,
+    required this.estudiante,
+  
+  }) : super(key: key);
+
   @override
-  State<NuevoEstudiantePage> createState() => _NuevoEstudiantePageState();
+  State<EditarEstudiantePage> createState() => _EditarEstudiantePageState();
 }
 
-class _NuevoEstudiantePageState extends State<NuevoEstudiantePage> {
+class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
   TextEditingController nombreCtrl = TextEditingController();
   TextEditingController apellidoCtrl = TextEditingController();
   TextEditingController disgustosCtrl = TextEditingController();
@@ -27,6 +34,23 @@ class _NuevoEstudiantePageState extends State<NuevoEstudiantePage> {
  
   
   @override
+
+  void initState() {
+    super.initState();
+    
+    
+    selectedCurso = widget.estudiante['curso'] ?? '1° Basico';
+    nombreCtrl.text = widget.estudiante['nombre'] ?? '';
+    
+    disgustosCtrl.text = widget.estudiante['disgustos'] ?? '';
+  
+  
+  }
+
+
+
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -57,7 +81,7 @@ class _NuevoEstudiantePageState extends State<NuevoEstudiantePage> {
               keyboardType: TextInputType.text,
               decoration: const InputDecoration(
 
-                labelText: 'Nombre',
+                labelText: 'Nombre Completo',
                 prefixIcon: Icon(Icons.person),
                 border: InputBorder.none, 
                 contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -70,28 +94,8 @@ class _NuevoEstudiantePageState extends State<NuevoEstudiantePage> {
             ),
           ),
         SizedBox(height: 16.0), 
-      Container(
-        margin: EdgeInsets.symmetric(vertical: 8.0),
-        decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: TextFormField(
-          controller: apellidoCtrl,
-          keyboardType: TextInputType.text,
-          decoration: InputDecoration(
-            labelText: 'Apellido',
-            border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
-            ),
-            validator: (String? value) {
-            if (value == null || value.isEmpty){
-              return "Campo Apellido requerido";
-            }
-          },
-        ),
-      ),
-      SizedBox(height: 16.0), 
+     
+      
 
 
       Container(
@@ -160,13 +164,15 @@ class _NuevoEstudiantePageState extends State<NuevoEstudiantePage> {
         if (formKey.currentState!.validate()) 
         {
             print('Todo bien');
-            String nombreApellido = nombreCtrl.text.trim() + ' ' +apellidoCtrl.text;
-                               
-            FirestoreService().EstudianteAgregar(
-              nombreApellido,
-              disgustosCtrl.text.trim(),
-              selectedCurso,     
-              widget.usuario.uid,
+            
+                             
+            FirestoreService().EstudianteEditar(
+              widget.estudiante.id,
+                {
+                  'nombre': nombreCtrl.text.trim(),
+                  'curso': selectedCurso.trim(),
+                  'disgustos': disgustosCtrl.text.trim(),                      
+                },
             );
           Navigator.pop(context);
           
@@ -182,4 +188,3 @@ class _NuevoEstudiantePageState extends State<NuevoEstudiantePage> {
     );
   }
 }
-
